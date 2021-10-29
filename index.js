@@ -59,6 +59,15 @@ async function run() {
             res.send(result);
         })
 
+        //GET API for retrieving all the orders for the admin;
+
+        app.get('/bookings', async (req, res) => {
+
+            const cursor = bookingCollection.find({});
+            const result = await cursor.toArray();
+            res.send(result)
+        })
+
         //POST API for inserting data into the orders collection;
 
         app.post('/bookings', async (req, res) => {
@@ -78,6 +87,16 @@ async function run() {
             const cursor = bookingCollection.deleteOne({ userEmail: user, packId: bookingId });
 
             res.json(cursor);
+        })
+
+        //Delete API for admin deletion;
+        app.delete('/admin/delete/:id', async (req, res) => {
+
+            const id = req.params.id;
+
+            const cursor = bookingCollection.deleteOne({ packId: id });
+
+            res.json(cursor)
         })
 
 
