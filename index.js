@@ -100,14 +100,18 @@ async function run() {
         })
 
         //UPDATE API for approving the clients vacation;
-        app.put('/approve/:id', async (req, res) => {
-
+        app.put('/modify/:id', async (req, res) => {
             const id = req.params.id;
 
-            console.log('updating');
-            res.send('Updating');
+            const filter = { packId: id }
+            const updateDoc = {
+                $set: {
+                    status: 'Approved'
+                }
+            }
+            const result = await bookingCollection.updateOne(filter, updateDoc)
+            res.json(result);
         })
-
     }
     finally {
         // await client.close();
