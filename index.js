@@ -26,6 +26,7 @@ async function run() {
 
         const database = client.db('travello')
         const destinationCollection = database.collection('destinations');
+        const bookingCollection = database.collection('bookings')
 
         //GET API for retrieving all the destinations
         app.get('/destinations', async (req, res) => {
@@ -45,6 +46,16 @@ async function run() {
             const result = await destinationCollection.findOne(query);
 
             res.send(result);
+        })
+
+        //POST API for inserting data into the orders collection;
+
+        app.post('/bookings', async (req, res) => {
+
+            const data = req.body;
+            const result = await bookingCollection.insertOne(data);
+
+            res.json(result);
         })
     }
     finally {
