@@ -48,6 +48,17 @@ async function run() {
             res.send(result);
         })
 
+        //GET API for retrieving orders of a user;
+        app.get('/bookings/user', async (req, res) => {
+
+            const queryEmail = req.query.search;
+            const cursor = bookingCollection.find({ userEmail: queryEmail });
+
+            const result = await cursor.toArray()
+
+            res.send(result);
+        })
+
         //POST API for inserting data into the orders collection;
 
         app.post('/bookings', async (req, res) => {
