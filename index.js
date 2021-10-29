@@ -99,6 +99,14 @@ async function run() {
             res.json(cursor)
         })
 
+        //UPDATE API for approving the clients vacation;
+        app.put('/approve/:id', async (req, res) => {
+
+            const id = req.params.id;
+
+            console.log('updating');
+            res.send('Updating');
+        })
 
     }
     finally {
