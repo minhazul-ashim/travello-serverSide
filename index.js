@@ -68,6 +68,19 @@ async function run() {
 
             res.json(result);
         })
+
+        //DELETE API for cancelling user booking;
+        app.delete('/booking', async (req, res) => {
+
+            const user = req.query.email;
+            const bookingId = req.query.id;
+
+            const cursor = bookingCollection.deleteOne({ userEmail: user, packId: bookingId });
+
+            res.json(cursor);
+        })
+
+
     }
     finally {
         // await client.close();
