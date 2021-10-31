@@ -78,6 +78,15 @@ async function run() {
             res.json(result);
         })
 
+        //POST API for inserting a new service for the admin;
+        app.post('/destinations', async (req, res) => {
+
+            const data = req.body;
+            const result = await destinationCollection.insertOne(data);
+
+            res.json(result)
+        })
+
         //DELETE API for cancelling user booking;
         app.delete('/booking', async (req, res) => {
 
@@ -99,6 +108,16 @@ async function run() {
             res.json(cursor)
         })
 
+        //DELETE API for the admin to delete a package;
+        app.delete('/destinations/:id', async (req, res) => {
+
+            const id = req.params.id;
+
+            const cursor = destinationCollection.deleteOne({ _id: ObjectId(id) });
+
+            res.json(cursor)
+        })
+
         //UPDATE API for approving the clients vacation;
         app.put('/modify/:id', async (req, res) => {
             const id = req.params.id;
@@ -110,7 +129,7 @@ async function run() {
                 }
             }
             const result = await bookingCollection.updateOne(filter, updateDoc)
-            res.json(result);
+            res.send(result);
         })
     }
     finally {
