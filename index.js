@@ -27,6 +27,7 @@ async function run() {
         const database = client.db('travello')
         const destinationCollection = database.collection('destinations');
         const bookingCollection = database.collection('bookings')
+        const teamCollection = database.collection('team')
 
         //GET API for retrieving all the destinations
         app.get('/destinations', async (req, res) => {
@@ -65,6 +66,15 @@ async function run() {
 
             const cursor = bookingCollection.find({});
             const result = await cursor.toArray();
+            res.send(result)
+        })
+
+        //GET API for retrieving team members;
+        app.get('/team', async (req, res) => {
+
+            const cursor = teamCollection.find({});
+            const result = await cursor.toArray();
+
             res.send(result)
         })
 
